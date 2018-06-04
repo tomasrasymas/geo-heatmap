@@ -65,5 +65,5 @@ Map tileset to use - 'OpenStreetMap'
 >>> python geo_heatmap.py -hmr 100 -hmb 8 -hmmo 0.1
 ```
 
-####Output
+#### Output
 ![alt text](images/sample.png "sample")
