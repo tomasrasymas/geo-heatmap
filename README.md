@@ -3,11 +3,11 @@ This peace of software allows you to generate geographical heatmaps by using dat
 
 ### Usage
 ```
-sage: geo_heatmap.py [-h] [-c CSV] [-o OUTPUT]
+usage: geo_heatmap.py [-h] [-c CSV] [-o OUTPUT]
                       [-ml MAP_LOCATION [MAP_LOCATION ...]]
                       [-mzs MAP_ZOOM_START] [-hmr HEATMAP_RADIUS]
                       [-hmb HEATMAP_BLUR] [-hmmo HEATMAP_MIN_OPOCITY]
-                      [-hmmz HEATMAP_MAX_ZOOM] [-mt TILES]
+                      [-hmmz HEATMAP_MAX_ZOOM] [-mt TILES] [-mv MAX_VALUE]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -28,7 +28,8 @@ optional arguments:
                         Heatmap max zoom
   -mt TILES, --map_tiles TILES
                         Map tileset to use
-
+  -mv MAX_VALUE, --max_value MAX_VALUE
+                        Max magnitude value
 ```
 
 ### CSV file structure
@@ -58,7 +59,8 @@ Heatmap radius of each “point” of the heatmap - 5
 Heatmap amount of blur - 5  
 Heatmap minimum opacity the heat will start at - 0.2  
 Heatmap max zoom - 4  
-Map tileset to use - 'OpenStreetMap'  
+Map tileset to use - 'OpenStreetMap' 
+Max magnitude value - if not set max value from csv 
 
 ### Example
 ```

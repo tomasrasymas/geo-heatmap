@@ -24,6 +24,8 @@ if __name__ == '__main__':
                         help='Heatmap max zoom', default=4)
     parser.add_argument('-mt', '--map_tiles', dest='tiles', type=str, required=False,
                         help='Map tileset to use', default='OpenStreetMap')
+    parser.add_argument('-mv', '--max_value', dest='max_value', type=str, required=False,
+                        help='Max magnitude value')
 
     args = parser.parse_args()
 
@@ -38,7 +40,7 @@ if __name__ == '__main__':
 
         for_map = pd.read_csv(args.csv, sep=';')
 
-        max_amount = float(for_map['magnitude'].max())
+        max_amount = float(args.max_value) if args.max_value else float(for_map['magnitude'].max())
         hmap = folium.Map(location=location,
                           zoom_start=args.map_zoom_start,
                           tiles=args.tiles)
@@ -58,4 +60,6 @@ if __name__ == '__main__':
 
         print('Output: %s' % args.output)
     except:
+        import traceback
         print('Error occurred!')
+        print(traceback.format_exc())
