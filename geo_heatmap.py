@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import folium
 from folium.plugins import HeatMap
 import pandas as pd
 from argparse import ArgumentParser
-
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -11,7 +13,7 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output', dest='output', type=str, required=False,
                         help='Path of html geographical heatmap', default='geo_heatmap.html')
     parser.add_argument('-ml', '--map_location', nargs='+', dest='map_location', type=str, required=False,
-                        help='Latitude and Longitude of Map (Northing, Easting)', default=['55.0', '24.0'])
+                        help='Latitude and Longitude of Map (Northing, Easting)', default="auto")
     parser.add_argument('-mzs', '--map_zoom_start', dest='map_zoom_start', type=int, required=False,
                         help='Initial zoom level for the map', default=7)
     parser.add_argument('-hmr', '--heatmap_radius', dest='heatmap_radius', type=int, required=False,
@@ -36,9 +38,14 @@ if __name__ == '__main__':
     print('*' * 50)
 
     try:
-        location = [float(i) for i in args.map_location]
-
         for_map = pd.read_csv(args.csv, sep=';')
+
+        if args.map_location == "auto":
+            location = [((for_map['lat'].max()-for_map['lat'].min())/2)+for_map['lat'].min(),
+                        ((for_map['lon'].max()-for_map['lon'].min())/2)+for_map['lon'].min()]
+            print("automatic center of map:",location)
+        else: #manual iput
+            location = [float(i) for i in args.map_location]
 
         max_amount = float(args.max_value) if args.max_value else float(for_map['magnitude'].max())
         hmap = folium.Map(location=location,
